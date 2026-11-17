@@ -101,10 +101,10 @@
         <div class="chat-log" id="chatLog" role="log" aria-live="polite" aria-label="Conversation"></div>
 
         <div class="prompt-strip" id="promptStrip" aria-label="Suggested questions">
-          <button type="button" data-question="Why did we replace the cone with a bottle head?">Why remove the cone?</button>
-          <button type="button" data-question="How do four fins improve stability?">Explain the four fins</button>
-          <button type="button" data-question="Calculate the minimum speed needed for 6 m at 45 degrees">Calculate minimum speed</button>
-          <button type="button" data-question="What safety rules must we follow?">Launch safety</button>
+          <button type="button" data-question="What are our rocket's exact specifications?">Our specifications</button>
+          <button type="button" data-question="How does a water rocket work?">How it works</button>
+          <button type="button" data-question="What produces thrust?">Explain thrust</button>
+          <button type="button" data-question="How should we test the final rocket?">Testing procedure</button>
         </div>
 
         <form class="composer" id="chatForm">
@@ -154,9 +154,12 @@
         </div>
 
         <dl class="spec-list">
+          <div><dt>Bottle</dt><dd>1.5 L PET</dd></div>
+          <div><dt>Water</dt><dd>500 mL nominal</dd></div>
           <div><dt>Nose</dt><dd>Recycled bottle dome</dd></div>
+          <div><dt>Ballast</dt><dd>10 g clay</dd></div>
           <div><dt>Stability</dt><dd>4 fins at 90°</dd></div>
-          <div><dt>Structure</dt><dd>Rigid corrugated card</dd></div>
+          <div><dt>Each fin</dt><dd>10 × 5 cm · 3 g</dd></div>
           <div><dt>Joint</dt><dd>Black duct tape</dd></div>
           <div><dt>Length</dt><dd>Under 50 cm</dd></div>
         </dl>
@@ -171,7 +174,7 @@
         <button class="knowledge-button" id="openKnowledgeButton" type="button">
           <span>
             <b>Knowledge coverage</b>
-            <small>18 engineering topics</small>
+            <small>24 project topics</small>
           </span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
         </button>
@@ -186,7 +189,7 @@
         </div>
         <button class="round-button close-modal" type="button" aria-label="Close test evidence">×</button>
       </div>
-      <p class="modal-lead">HydroGuide was checked against project-specific, calculation, safety and fallback questions.</p>
+      <p class="modal-lead">HydroGuide was checked against every handout topic plus project-specific parameters, calculations, safety and fallback questions.</p>
       <div class="test-summary">
         <strong id="testScore">—</strong>
         <span>automatic checks passed</span>
