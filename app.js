@@ -16,6 +16,13 @@ const projectFacts = {
   minimumRangeM: 6,
   safetyDistanceM: 4.6,
   bottleRetirementLaunches: "10–15",
+  bottleCapacityL: 1.5,
+  selectedWaterMl: 500,
+  clayMassG: 10,
+  finCount: 4,
+  finMassG: 3,
+  finHeightCm: 10,
+  finBaseCm: 5,
   gravity: 9.81,
   airDensity: 1.225,
   assumedDiameterM: 0.105,
@@ -28,6 +35,8 @@ const topicLabels = [
   ["⚑", "Launch safety"], ["↺", "Prototype lessons"], ["◇", "Final design"],
   ["$", "Cost"], ["♻", "Sustainability"], ["⌕", "Testing method"],
   ["∑", "Calculations"], ["☁", "Wind effects"], ["⋯", "Future improvements"],
+  ["↥", "Thrust & momentum"], ["●", "Clay ballast"], ["▤", "Design parameters"],
+  ["✓", "Test results"], ["?", "Project FAQ"], ["⚙", "Engineering principles"],
 ];
 
 const knowledge = [
@@ -38,8 +47,8 @@ const knowledge = [
     answer: () => `
       <span class="answer-tag">Ready for launch</span>
       <p>Hello! I’m <strong>HydroGuide AI</strong>, your offline engineering assistant for the NGN 110 Water Rocket Challenge.</p>
-      <p>I can explain the final design, compare alternatives, calculate ideal projectile values, suggest a test plan and summarize the handout’s safety rules.</p>
-      <p>Try asking: <strong>“Why did we use four fins?”</strong></p>`,
+      <p>I can explain how the rocket works, its exact design parameters and materials, thrust, pressure, stability, aerodynamics, projectile motion, testing, safety and sustainability.</p>
+      <p>Try asking: <strong>“What are our rocket’s exact specifications?”</strong></p>`,
   },
   {
     id: "requirements",
@@ -62,9 +71,45 @@ const knowledge = [
     phrases: ["final design", "selected design", "our rocket", "what did we build"],
     answer: () => `
       <span class="answer-tag">Selected configuration</span>
-      <p>The final rocket uses a standard PET pressure bottle, a <strong>rounded head cut from a second bottle</strong>, four rigid corrugated-cardboard fins and a black duct-tape nose joint.</p>
+      <p>The final rocket uses a <strong>1.5 L PET pressure bottle</strong>, a rounded head cut from a second bottle, four rigid corrugated-cardboard fins, a black duct-tape nose joint and approximately <strong>10 g of clay ballast</strong> near the nose.</p>
+      <p>Each fin is approximately <strong>10 cm high × 5 cm at the base</strong> and has a mass of about <strong>3 g</strong>. The four fins therefore add about 12 g in total.</p>
       <p>It was selected because it stays below the 50 cm limit while balancing aerodynamic shape, stability, durability, low cost and simple construction. Its engineering decision score was <strong>4.75/5</strong>.</p>
       <p>The exact finished length and dry mass should be measured and recorded rather than estimated.</p>`,
+  },
+  {
+    id: "design_parameters",
+    keywords: ["parameter", "parameters", "spec", "specs", "specification", "specifications", "dimension", "dimensions", "capacity", "size", "measurement", "measurements"],
+    phrases: ["design parameters", "rocket specifications", "exact specifications", "bottle size", "bottle capacity", "how big is the bottle", "what are our rockets exact specifications"],
+    answer: () => `
+      <span class="answer-tag">Team design parameters</span>
+      <ul>
+        <li>Pressure bottle: <strong>1.5 L PET carbonated-drink bottle</strong></li>
+        <li>Nominal water volume: <strong>500 mL</strong>, or 33.3% of capacity</li>
+        <li>Nose: rounded dome cut from a second bottle</li>
+        <li>Ballast: approximately <strong>10 g of clay</strong> near the nose</li>
+        <li>Fins: <strong>4</strong>, spaced about 90° apart</li>
+        <li>Each fin: approximately <strong>10 cm high × 5 cm base × 3 g</strong></li>
+        <li>Total fin mass: approximately <strong>12 g</strong></li>
+        <li>Total length: below the <strong>50 cm</strong> limit</li>
+      </ul>
+      <p>Known fin and clay mass together is about <strong>22 g</strong>, excluding the bottle-head nose, tape and glue.</p>`,
+  },
+  {
+    id: "engineering_principles",
+    keywords: ["engineering", "principle", "principles", "physics", "law", "laws", "science"],
+    phrases: ["engineering principles", "physics principles", "principles used", "science behind the rocket", "newtons laws"],
+    answer: () => `
+      <span class="answer-tag">Engineering principles</span>
+      <p>The design combines several principles:</p>
+      <ul>
+        <li><strong>Pressure and stored energy:</strong> the pump compresses air above the water.</li>
+        <li><strong>Newton’s third law and momentum:</strong> water moving backward produces forward thrust.</li>
+        <li><strong>Newton’s second law:</strong> acceleration depends on net force divided by instantaneous mass.</li>
+        <li><strong>Stability:</strong> rear fins keep the centre of pressure behind the centre of mass.</li>
+        <li><strong>Aerodynamics:</strong> a smooth nose, aligned fins and small frontal area reduce drag.</li>
+        <li><strong>Projectile motion:</strong> launch speed and angle determine ideal horizontal range.</li>
+        <li><strong>Experimental design:</strong> one variable is changed at a time and repeated trials are averaged.</li>
+      </ul>`,
   },
   {
     id: "nose",
@@ -77,12 +122,22 @@ const knowledge = [
   },
   {
     id: "fins",
-    keywords: ["fin", "fins", "four", "4", "cardboard", "corrugated", "stabilizer", "straight"],
-    phrases: ["why four fins", "fin design", "90 degrees", "four fins"],
+    keywords: ["fin", "fins", "four", "4", "cardboard", "corrugated", "stabilizer", "straight", "height", "base", "3g"],
+    phrases: ["why four fins", "fin design", "90 degrees", "four fins", "fin dimensions", "fin size", "fin weight", "how heavy are the fins"],
     answer: () => `
       <span class="answer-tag">Stability system</span>
-      <p>Four equal fins are spaced approximately <strong>90° apart</strong> near the nozzle. Their rear position moves the centre of pressure backward, helping it remain behind the centre of mass.</p>
+      <p>Four equal fins are spaced approximately <strong>90° apart</strong> near the nozzle. Each fin is about <strong>10 cm high, 5 cm along its base and 3 g</strong>, giving a total fin mass of approximately <strong>12 g</strong>.</p>
+      <p>If each fin is approximated as a triangle, its planform area is ½ × 10 × 5 = <strong>25 cm²</strong>, or <strong>100 cm²</strong> for all four pieces. Only part of that total area faces any one airflow direction, but the symmetric rear area creates a restoring aerodynamic moment.</p>
       <p>That restoring effect keeps the nose pointing into the airflow. The prototype’s four-fin arrangement was already stable, so retaining it reduced design risk. Stiffer corrugated cardboard prevents fin bending that would otherwise cause turning and wasted range.</p>`,
+  },
+  {
+    id: "ballast",
+    keywords: ["clay", "ballast", "noseweight", "weight", "10g", "10", "balance"],
+    phrases: ["how much clay", "clay mass", "clay weight", "why use clay", "nose ballast", "10 g of clay"],
+    answer: () => `
+      <span class="answer-tag">Nose ballast</span>
+      <p>The final rocket uses approximately <strong>10 g of clay</strong> near the nose. Moving this small mass forward shifts the centre of mass toward the nose, increasing the separation between the centre of mass and the rear centre of pressure.</p>
+      <p>This improves passive stability, but ballast is a trade-off: extra mass reduces acceleration because <strong>a = F<sub>net</sub>/m</strong>. Ten grams was kept modest so it could improve balance without adding excessive weight. The clay must be fixed securely so it cannot move during flight.</p>`,
   },
   {
     id: "stability",
@@ -100,15 +155,26 @@ const knowledge = [
     answer: () => `
       <span class="answer-tag">Test variable</span>
       <p>Water provides reaction mass, while the compressed air provides stored energy. Too little water gives a short impulse; too much water leaves too little compressed air and makes the rocket heavy.</p>
-      <p>A sensible experimental starting range is roughly <strong>30–40% of bottle capacity</strong>, but the handout requires the team to select and justify the amount through testing. Keep pressure, launch angle and rocket design constant while changing only the water volume.</p>`,
+      <p>For the team’s <strong>1.5 L bottle</strong>, the nominal selected starting volume is <strong>500 mL</strong>. This is 500/1500 = <strong>33.3%</strong> of capacity, leaving about <strong>1.0 L of air space</strong> before pressurization. The water mass is approximately 0.50 kg.</p>
+      <p>This lies inside the usual 30–40% experimental starting range. It should be verified by comparing nearby values such as 450, 500 and 550 mL while keeping the pressure procedure, launch angle and rocket design constant.</p>`,
+  },
+  {
+    id: "thrust",
+    keywords: ["thrust", "momentum", "reaction", "newton", "exhaust", "force", "propulsion"],
+    phrases: ["what produces thrust", "explain thrust", "how is thrust produced", "newtons third law", "action and reaction", "water momentum"],
+    answer: () => `
+      <span class="answer-tag">Thrust and momentum</span>
+      <p>Compressed air pushes water through the bottle neck. The expelled water gains backward momentum, so the rocket receives an equal and opposite forward force under Newton’s third law.</p>
+      <span class="formula">F<sub>T</sub> ≈ ṁv<sub>e</sub> + (p<sub>e</sub> − p<sub>a</sub>)A<sub>e</sub></span>
+      <p>Here, ṁ is water mass flow rate, v<sub>e</sub> is exit speed and the pressure term represents any pressure difference at the nozzle. Thrust is initially high, then falls as water and pressure are exhausted. The rocket coasts as a projectile after powered flight ends.</p>`,
   },
   {
     id: "pressure",
     keywords: ["pressure", "pump", "psi", "bar", "compress", "air", "thrust", "launch", "shoot"],
-    phrases: ["how does it launch", "how much pressure", "electric pump", "launch mechanism"],
+    phrases: ["how does it launch", "how does a water rocket work", "how water rocket works", "how much pressure", "electric pump", "launch mechanism"],
     answer: () => `
       <span class="answer-tag">Propulsion</span>
-      <p>The electric pump compresses the air above the water. When the launcher releases the bottle, that air pushes water rapidly through the nozzle. The backward water momentum creates an equal and opposite thrust on the rocket.</p>
+      <p>The electric pump compresses the approximately <strong>1.0 L air space</strong> above the team’s nominal 500 mL water load. Pressure stores energy in that compressed air. When the launcher releases the bottle, the air expands and pushes water through the nozzle, producing thrust.</p>
       <p>The handout does <strong>not</strong> state a numerical pressure limit, so HydroGuide will not invent one. Use only the instructor-provided pump, launcher and approved pressure procedure. Never approach or handle a pressurized rocket.</p>`,
   },
   {
@@ -189,14 +255,24 @@ const knowledge = [
     phrases: ["test plan", "fair test", "testing method", "how should we test"],
     answer: () => `
       <span class="answer-tag">Experimental method</span>
-      <p>Use a controlled one-variable-at-a-time test:</p>
+      <p>Use a controlled one-variable-at-a-time test. For the 1.5 L final rocket:</p>
       <ul>
         <li>Keep the bottle, fins, pressure procedure and launch angle constant.</li>
-        <li>Change only one variable, such as water volume.</li>
+        <li>Compare water volumes such as <strong>450, 500 and 550 mL</strong>.</li>
         <li>Perform at least three trials per setting where permitted.</li>
-        <li>Record horizontal distance, wind conditions, visible wobble and damage.</li>
+        <li>Measure horizontal distance from the launch line to first ground contact.</li>
+        <li>Record launch angle, water volume, wind, visible wobble, landing orientation and damage.</li>
         <li>Compare averages rather than selecting only the longest trial.</li>
       </ul>`,
+  },
+  {
+    id: "results",
+    keywords: ["result", "results", "outcome", "performance", "passed", "achieved", "measured"],
+    phrases: ["test results", "testing results", "how far did it go", "did it pass", "what were the results", "final distance"],
+    answer: () => `
+      <span class="answer-tag">Verified project results</span>
+      <p>The original long-cone prototype travelled <strong>well beyond the 6 m qualification distance</strong>, confirming that the bottle, pump and four-fin concept could generate adequate range. It also exposed three weaknesses: the rocket exceeded 50 cm, the cone crumpled and the soft fins bent.</p>
+      <p>The final rocket was redesigned around a 1.5 L bottle, compact bottle-head nose, 10 g clay ballast and four rigid 3 g fins. A numerical final-competition distance has not yet been supplied to HydroGuide, so it will not invent one. Once measured, that value should be compared directly with the 6 m requirement.</p>`,
   },
   {
     id: "cost",
@@ -215,6 +291,22 @@ const knowledge = [
       <span class="answer-tag">Sustainable design</span>
       <p>The design reuses PET bottles and cardboard that would otherwise become waste. The compact bottle-head nose also uses less material than the large laminated cone.</p>
       <p>Sustainability should not override safety: a damaged pressure bottle must be retired, even if reuse would otherwise be preferred.</p>`,
+  },
+  {
+    id: "faq",
+    keywords: ["faq", "frequently", "common", "question", "questions"],
+    phrases: ["frequently asked questions", "common questions", "project faq", "what can people ask"],
+    answer: () => `
+      <span class="answer-tag">Frequently asked questions</span>
+      <ul>
+        <li><strong>How does it work?</strong> Compressed air expels water and creates reaction thrust.</li>
+        <li><strong>Why four fins?</strong> They provide symmetric rear stability at 90° intervals.</li>
+        <li><strong>Why 500 mL?</strong> It is 33.3% of the 1.5 L bottle and balances reaction mass with compressed-air volume.</li>
+        <li><strong>Why 10 g of clay?</strong> It shifts the centre of mass forward without excessive ballast.</li>
+        <li><strong>Why remove the cone?</strong> The bottle-head nose is shorter, tougher and still smooth.</li>
+        <li><strong>Did it meet 6 m?</strong> The prototype exceeded 6 m; the final measured competition result must be added after testing.</li>
+        <li><strong>Is it sustainable?</strong> It reuses PET bottles and cardboard, while damaged pressure bottles are retired for safety.</li>
+      </ul>`,
   },
   {
     id: "improvements",
@@ -253,13 +345,28 @@ const knowledge = [
 
 const testCases = [
   { question: "What is the maximum rocket length?", expected: "requirements", label: "Handout constraint" },
+  { question: "How does a water rocket work?", expected: "pressure", label: "How the rocket works" },
+  { question: "What are our rocket's exact specifications?", expected: "design_parameters", label: "Team design parameters" },
+  { question: "What materials did we use?", expected: "materials", label: "Design materials" },
+  { question: "What engineering principles are used?", expected: "engineering_principles", label: "Engineering principles" },
+  { question: "What produces thrust?", expected: "thrust", label: "Thrust explanation" },
+  { question: "How does pressure launch the rocket?", expected: "pressure", label: "Pressure explanation" },
   { question: "Why did we remove the cone?", expected: "nose", label: "Design decision" },
   { question: "How do 4 fins keep it stable?", expected: "fins", label: "Final configuration" },
+  { question: "What are the fin dimensions and weight?", expected: "fins", label: "Fin specifications" },
+  { question: "Why did we add 10 g of clay?", expected: "ballast", label: "Ballast and stability" },
   { question: "How much water should be used?", expected: "water", label: "Design variable" },
+  { question: "Why was 500 mL selected for the 1.5 L bottle?", expected: "water", label: "Selected water volume" },
+  { question: "Explain aerodynamic drag", expected: "drag", label: "Aerodynamics" },
+  { question: "Explain projectile motion", expected: "range", label: "Projectile motion" },
   { question: "Can I use 120 psi?", expected: "pressure", label: "Pressure safety" },
   { question: "Calculate minimum speed for 6 m at 45 degrees", expected: "calculation", label: "Engineering calculation" },
+  { question: "How should we test the final rocket?", expected: "testing", label: "Testing procedure" },
+  { question: "What were the test results?", expected: "results", label: "Testing results" },
   { question: "What damage means the bottle must be replaced?", expected: "safety", label: "Bottle inspection" },
   { question: "What went wrong with the first prototype?", expected: "prototype", label: "Iteration history" },
+  { question: "How is the project sustainable?", expected: "sustainability", label: "Sustainability" },
+  { question: "What are the frequently asked questions?", expected: "faq", label: "Project FAQ" },
   { question: "How was the chatbot developed?", expected: "chatbot_limit", label: "Chatbot explanation" },
   { question: "Write a recipe for pasta", expected: "fallback", label: "Out-of-scope fallback" },
 ];
@@ -322,7 +429,7 @@ function parseNumbers(text) {
 
 function calculateResponse(question) {
   const text = normalize(question);
-  const asksCalculation = /(calculate|compute|equation|minimum speed|required speed|velocity needed|range at)/.test(text);
+  const asksCalculation = /(minimum speed|required speed|velocity needed|range at|calculate.*(?:speed|velocity|range)|compute.*(?:speed|velocity|range))/.test(text);
   if (!asksCalculation) return null;
 
   const angleMatch = text.match(/(\d+(?:\.\d+)?)\s*(?:°|degree|degrees)/);
@@ -351,11 +458,21 @@ function calculateResponse(question) {
 
 function waterVolumeResponse(question) {
   const text = normalize(question);
-  if (!/(water|fill|volume)/.test(text)) return null;
+  if (!/(water|fill|volume|\bml\b)/.test(text)) return null;
   const capacityMatch = text.match(/(\d+(?:\.\d+)?)\s*(?:l|liter|liters|litre|litres)\b/);
   if (!capacityMatch) return null;
   const capacity = Number(capacityMatch[1]);
   if (capacity <= 0 || capacity > 5) return null;
+  if (Math.abs(capacity - projectFacts.bottleCapacityL) < 0.01 && /(selected|our|final|recommend|ideal|best)/.test(text)) {
+    return {
+      id: "water",
+      html: `
+        <span class="answer-tag">Team water selection</span>
+        <p>For the team’s <strong>1.5 L bottle</strong>, the nominal selected water volume is <strong>500 mL</strong>.</p>
+        <span class="formula">500 / 1500 × 100 = 33.3%</span>
+        <p>This leaves about <strong>1.0 L of air space</strong> before pressurization and approximately 0.50 kg of water reaction mass. Nearby volumes should still be compared experimentally.</p>`,
+    };
+  }
   return {
     id: "water",
     html: `
@@ -380,7 +497,7 @@ function generateAnswer(question) {
     html: `
       <span class="answer-tag">Outside my verified knowledge</span>
       <p>I’m designed specifically for this water-rocket project, and I don’t want to invent an answer.</p>
-      <p>Try asking about <strong>the 50 cm limit, four fins, water volume, drag, projectile range, the prototype changes or launch safety</strong>.</p>`,
+      <p>Try asking about <strong>the 1.5 L bottle, 500 mL water setting, 10 g clay, fin dimensions, thrust, pressure, stability, drag, testing results, sustainability or launch safety</strong>.</p>`,
   };
 }
 
