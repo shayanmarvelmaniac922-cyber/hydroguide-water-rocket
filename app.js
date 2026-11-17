@@ -18,6 +18,7 @@ const projectFacts = {
   bottleRetirementLaunches: "10–15",
   bottleCapacityL: 1.5,
   selectedWaterMl: 500,
+  finalDistanceM: 68,
   clayMassG: 10,
   finCount: 4,
   finMassG: 3,
@@ -74,6 +75,7 @@ const knowledge = [
       <p>The final rocket uses a <strong>1.5 L PET pressure bottle</strong>, a rounded head cut from a second bottle, four rigid corrugated-cardboard fins, a black duct-tape nose joint and approximately <strong>10 g of clay ballast</strong> near the nose.</p>
       <p>Each fin is approximately <strong>10 cm high × 5 cm at the base</strong> and has a mass of about <strong>3 g</strong>. The four fins therefore add about 12 g in total.</p>
       <p>It was selected because it stays below the 50 cm limit while balancing aerodynamic shape, stability, durability, low cost and simple construction. Its engineering decision score was <strong>4.75/5</strong>.</p>
+      <p>In the final test it travelled <strong>68 m</strong> and remained intact with <strong>no visible damage</strong> after landing.</p>
       <p>The exact finished length and dry mass should be measured and recorded rather than estimated.</p>`,
   },
   {
@@ -267,12 +269,13 @@ const knowledge = [
   },
   {
     id: "results",
-    keywords: ["result", "results", "outcome", "performance", "passed", "achieved", "measured"],
-    phrases: ["test results", "testing results", "how far did it go", "did it pass", "what were the results", "final distance"],
+    keywords: ["result", "results", "outcome", "performance", "passed", "achieved", "measured", "distance", "damage", "damaged", "intact", "survived", "68"],
+    phrases: ["test results", "testing results", "how far did it go", "did it pass", "what were the results", "final distance", "how far did the final rocket travel", "was the final rocket damaged", "did the rocket survive"],
     answer: () => `
       <span class="answer-tag">Verified project results</span>
       <p>The original long-cone prototype travelled <strong>well beyond the 6 m qualification distance</strong>, confirming that the bottle, pump and four-fin concept could generate adequate range. It also exposed three weaknesses: the rocket exceeded 50 cm, the cone crumpled and the soft fins bent.</p>
-      <p>The final rocket was redesigned around a 1.5 L bottle, compact bottle-head nose, 10 g clay ballast and four rigid 3 g fins. A numerical final-competition distance has not yet been supplied to HydroGuide, so it will not invent one. Once measured, that value should be compared directly with the 6 m requirement.</p>`,
+      <p>The final rocket was redesigned around a 1.5 L bottle, compact bottle-head nose, 10 g clay ballast and four rigid 3 g fins. Its verified final distance was <strong>68 m</strong>.</p>
+      <p>This is <strong>62 m beyond</strong> the 6 m requirement and about <strong>11.3 times the minimum distance</strong> (68 ÷ 6 = 11.3). The rocket also remained structurally intact with <strong>no visible damage after landing</strong>, supporting the decision to use sturdier corrugated fins, duct tape and the compact bottle-head nose.</p>`,
   },
   {
     id: "cost",
@@ -304,7 +307,7 @@ const knowledge = [
         <li><strong>Why 500 mL?</strong> It is 33.3% of the 1.5 L bottle and balances reaction mass with compressed-air volume.</li>
         <li><strong>Why 10 g of clay?</strong> It shifts the centre of mass forward without excessive ballast.</li>
         <li><strong>Why remove the cone?</strong> The bottle-head nose is shorter, tougher and still smooth.</li>
-        <li><strong>Did it meet 6 m?</strong> The prototype exceeded 6 m; the final measured competition result must be added after testing.</li>
+        <li><strong>Did it meet 6 m?</strong> Yes. The final rocket travelled 68 m—62 m beyond, or about 11.3 times, the minimum—and had no visible damage after landing.</li>
         <li><strong>Is it sustainable?</strong> It reuses PET bottles and cardboard, while damaged pressure bottles are retired for safety.</li>
       </ul>`,
   },
@@ -320,7 +323,7 @@ const knowledge = [
         <li>Test several water-fill ratios under the same launch conditions.</li>
         <li>Use a template to make all four fins identical and exactly 90° apart.</li>
         <li>Smooth exposed tape edges and verify the nose is centred.</li>
-        <li>Record the final competition distance and compare it with the 6 m requirement.</li>
+        <li>Use the verified 68 m competition result as a baseline and repeat trials to check consistency.</li>
       </ul>`,
   },
   {
@@ -363,6 +366,8 @@ const testCases = [
   { question: "Calculate minimum speed for 6 m at 45 degrees", expected: "calculation", label: "Engineering calculation" },
   { question: "How should we test the final rocket?", expected: "testing", label: "Testing procedure" },
   { question: "What were the test results?", expected: "results", label: "Testing results" },
+  { question: "How far did the final rocket travel?", expected: "results", label: "Final competition distance" },
+  { question: "Was the final rocket damaged after landing?", expected: "results", label: "Landing durability" },
   { question: "What damage means the bottle must be replaced?", expected: "safety", label: "Bottle inspection" },
   { question: "What went wrong with the first prototype?", expected: "prototype", label: "Iteration history" },
   { question: "How is the project sustainable?", expected: "sustainability", label: "Sustainability" },
