@@ -19,6 +19,12 @@ const projectFacts = {
   bottleCapacityL: 1.5,
   selectedWaterMl: 500,
   finalDistanceM: 68,
+  pressureBottleCostAed: 5,
+  noseBottleSectionCostAed: 1.5,
+  cardboardCostAed: 2,
+  tapeCostAed: 1.5,
+  clayCostAed: 2,
+  totalMaterialCostAed: 12,
   clayMassG: 10,
   finCount: 4,
   finMassG: 3,
@@ -279,12 +285,19 @@ const knowledge = [
   },
   {
     id: "cost",
-    keywords: ["cost", "price", "cheap", "aed", "dirham", "budget", "expensive"],
-    phrases: ["how much", "material cost", "project cost"],
+    keywords: ["cost", "costs", "price", "prices", "cheap", "aed", "dirham", "budget", "expensive", "breakdown"],
+    phrases: ["how much", "material cost", "project cost", "cost breakdown", "total cost", "how much did each material cost", "how much did the rocket cost"],
     answer: () => `
-      <span class="answer-tag">Estimated cost</span>
-      <p>The final rocket’s consumed-material cost was estimated at approximately <strong>AED 5–9</strong>, excluding the provided pump, launcher and reusable tools.</p>
-      <p>This is a planning estimate. A final report should use actual receipts or state clearly that reused bottles and cardboard had zero additional purchase cost.</p>`,
+      <span class="answer-tag">Material cost breakdown</span>
+      <ul>
+        <li>Main 1.5 L pressure bottle: <strong>AED 5.00</strong></li>
+        <li>Bottle section used for the nose: <strong>AED 1.50</strong></li>
+        <li>Rigid corrugated cardboard: <strong>AED 2.00</strong></li>
+        <li>Black duct tape used: <strong>AED 1.50</strong></li>
+        <li>Clay ballast: <strong>AED 2.00</strong></li>
+      </ul>
+      <span class="formula">5.00 + 1.50 + 2.00 + 1.50 + 2.00 = AED 12.00</span>
+      <p>The final rocket’s recorded material cost was therefore approximately <strong>AED 12.00</strong>. The instructor-provided pump and launch pad are excluded.</p>`,
   },
   {
     id: "sustainability",
@@ -307,6 +320,7 @@ const knowledge = [
         <li><strong>Why 500 mL?</strong> It is 33.3% of the 1.5 L bottle and balances reaction mass with compressed-air volume.</li>
         <li><strong>Why 10 g of clay?</strong> It shifts the centre of mass forward without excessive ballast.</li>
         <li><strong>Why remove the cone?</strong> The bottle-head nose is shorter, tougher and still smooth.</li>
+        <li><strong>How much did it cost?</strong> The recorded material total was approximately AED 12.00, excluding the provided pump and launcher.</li>
         <li><strong>Did it meet 6 m?</strong> Yes. The final rocket travelled 68 m—62 m beyond, or about 11.3 times, the minimum—and had no visible damage after landing.</li>
         <li><strong>Is it sustainable?</strong> It reuses PET bottles and cardboard, while damaged pressure bottles are retired for safety.</li>
       </ul>`,
@@ -368,6 +382,7 @@ const testCases = [
   { question: "What were the test results?", expected: "results", label: "Testing results" },
   { question: "How far did the final rocket travel?", expected: "results", label: "Final competition distance" },
   { question: "Was the final rocket damaged after landing?", expected: "results", label: "Landing durability" },
+  { question: "How much did each material cost?", expected: "cost", label: "Material cost breakdown" },
   { question: "What damage means the bottle must be replaced?", expected: "safety", label: "Bottle inspection" },
   { question: "What went wrong with the first prototype?", expected: "prototype", label: "Iteration history" },
   { question: "How is the project sustainable?", expected: "sustainability", label: "Sustainability" },
